@@ -9,4 +9,15 @@ def problem1(num):
             continue
     return result
 
-print(problem1(1000))
+def problem2(num1: int, num2: int, max: int):
+    result = 0
+    escape = 0
+    while (num2 < max):
+        if (num2 % 2 == 0):
+            result += num2
+        escape = num1
+        num1 = num2
+        num2 = escape + num1
+    return result
+
+print(problem2(1, 2, 4000000))
