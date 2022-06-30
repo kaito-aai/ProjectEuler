@@ -49,4 +49,21 @@ def problem4(num: int):
             result = target
     return result
 
-print(problem4(3))
+def problem5(num: int):
+    used: list[int] = [1]
+    result = 1
+
+    for n in range(2, num+1, 1):
+        alreadyUsed: list[int] = []
+        tmp = n
+        for u in used:
+            if (tmp % u == 0):
+                alreadyUsed.append(n)
+                tmp = int(tmp / u)
+        used.append(tmp)
+
+    for n in used:
+        result *= n
+    return result
+
+print(problem5(20))
