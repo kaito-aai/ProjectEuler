@@ -20,4 +20,15 @@ def problem2(num1: int, num2: int, max: int):
         num2 = escape + num1
     return result
 
-print(problem2(1, 2, 4000000))
+def problem3(num: int):
+    arr: list[int] = []
+    for n in range(2, num, 1):
+        if (num % n != 0):
+            continue
+        for f in arr:
+            if (n % f == 0):
+                return arr[-1]
+        arr.append(n)
+    return arr[-1]
+
+print(problem3(600851475143))
