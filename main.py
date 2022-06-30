@@ -54,11 +54,9 @@ def problem5(num: int):
     result = 1
 
     for n in range(2, num+1, 1):
-        alreadyUsed: list[int] = []
         tmp = n
         for u in used:
             if (tmp % u == 0):
-                alreadyUsed.append(n)
                 tmp = int(tmp / u)
         used.append(tmp)
 
