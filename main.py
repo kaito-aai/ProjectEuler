@@ -303,4 +303,25 @@ def problem13(nums: list[list[int]]):
     l = [int(x) for x in str(sum)]
     tenDigits =  int("".join(map(str, l[0:10])))
     return tenDigits
-print(problem13(nums))
+
+def problem14(num: int):
+    target = num
+    longestArr = []
+    while target > 1:
+        test = target
+        arr = []
+        arr.append(test)
+        while test > 1:
+            if test % 2 == 0:
+                test = int(test / 2)
+                arr.append(test)
+                continue
+            test = test * 3 + 1
+            arr.append(test)
+            continue
+        if len(longestArr) < len(arr):
+            longestArr = arr
+        target -= 1
+    return longestArr
+
+print(problem14(1000000))
