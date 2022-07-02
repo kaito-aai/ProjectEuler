@@ -1,6 +1,4 @@
-from fractions import Fraction
-from math import sqrt
-
+from math import floor, sqrt
 
 def problem1(num):
     result = 0
@@ -123,4 +121,24 @@ def problem9(num: int):
                 continue
             return a * b * c
 
-print(problem9(1000))
+def isPrime(n):
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    
+    m = floor(sqrt(n)) + 1
+    for p in range(3, m, 2):
+        if n % p == 0:
+            return False
+    return True
+
+def problem10(num: int):
+    primes: list[int] = []
+
+    for n in range(2, num+1, 1):
+        if (isPrime(n)):
+            primes.append(n)
+    return sum(primes)
+
+print(problem10(2000000))
