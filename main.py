@@ -1,3 +1,6 @@
+from math import factorial
+
+
 def problem1(num):
     result = 0
     for n in range(num - 1, 0, -1):
@@ -50,7 +53,7 @@ def problem4(num: int):
     return result
 
 def problem5(num: int):
-    used: list[int] = [1]
+    used: list[int] = []
     result = 1
 
     for n in range(2, num+1, 1):
@@ -64,4 +67,13 @@ def problem5(num: int):
         result *= n
     return result
 
-print(problem5(20))
+def problem6(num: int):
+    factorialSum = 0
+    sumForFactorial = 0
+    for n in range(1, num+1, 1):
+        sumForFactorial += n
+        factorialSum+= n**2
+    sumForFactorial **= 2
+    return sumForFactorial - factorialSum
+
+print(problem6(100))
