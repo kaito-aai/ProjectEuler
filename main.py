@@ -76,4 +76,19 @@ def problem6(num: int):
     sumForFactorial **= 2
     return sumForFactorial - factorialSum
 
-print(problem6(100))
+def problem7(num: int):
+    primeNumbers: list[int] = []
+    targetNum = 2
+    while (len(primeNumbers) < num):
+        for n in range(2, targetNum+1, 1):
+            if (targetNum % n != 0):
+                continue
+            if (targetNum != n):
+                targetNum+=1
+                continue
+            primeNumbers.append(targetNum)
+            targetNum+=1
+            continue
+    return primeNumbers[-1]
+
+print(problem7(10001))
