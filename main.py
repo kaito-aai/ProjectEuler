@@ -324,4 +324,12 @@ def problem14(num: int):
         target -= 1
     return longestArr
 
-print(problem14(1000000))
+def problem15(num: int):
+    bunsi = 1
+    bunbo = 1
+    for n in range(num+1, num*2+1):
+        bunsi *= n
+        bunbo *= (n - num)
+    return int(bunsi/bunbo)
+
+print(problem15(20))
