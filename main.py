@@ -332,4 +332,7 @@ def problem15(num: int):
         bunbo *= (n - num)
     return int(bunsi/bunbo)
 
-print(problem15(20))
+def problem16(num: int):
+    return sum([int(x) for x in str(2**num)])
+
+print(problem16(1000))
