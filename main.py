@@ -395,4 +395,14 @@ def problem19():
             setLastWeek(w)
     return sunCount
 
-print(problem19())
+def problem20(num: int):
+    digits = 1
+    for n in range(1,num+1):
+        digits *= n
+    digitsArr = [int(n) for n in str(digits)]
+    result = 0
+    for d in digitsArr:
+        result += d
+    return result
+
+print(problem20(100))
