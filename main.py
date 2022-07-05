@@ -360,4 +360,39 @@ def problem18(numsList: list[int]):
             nums[i - 1][index] += nums[i][s]
     return numsList[0][0]
 
-print(problem18(nums))
+def problem19():
+    dow = ["Mon", "Tue", "Wed", "Thu", "Fry", "Sat", "Sun"]
+    lastDow = "Mon"
+    sunCount = 0
+
+    def setLastWeek(w):
+        nonlocal dow
+        nonlocal lastDow
+        lastDowIndex = dow.index(lastDow)
+        dowFirst = dow[0:lastDowIndex+1]
+        dowSecond = dow[lastDowIndex+1:]
+        dowSecond.extend(dowFirst)
+        dow = dowSecond
+        lastDow = dow[w-1]
+
+    for y in range(1901, 2001):
+        for m in range(1, 13):
+            if lastDow == "Sat":
+                sunCount += 1
+            if (m == 4 or m == 6 or m == 9 or m == 11):
+                w = 30 % 7
+                setLastWeek(w)
+                continue
+            if (m == 1 or m == 3 or m == 5 or m == 7 or m == 8 or m == 10 or m == 12):
+                w = 31 % 7
+                setLastWeek(w)
+                continue
+            if (m == 2 and y % 4 == 0 and y % 400 != 0):
+                w = 29 % 7
+                setLastWeek(w)
+                continue
+            w = 28 % 7
+            setLastWeek(w)
+    return sunCount
+
+print(problem19())
