@@ -405,4 +405,29 @@ def problem20(num: int):
         result += d
     return result
 
-print(problem20(100))
+def getDivisorsSum(num: int):
+    arr = [[1,num]]
+    for n in range(2,int(num/2)+1):
+        if (num % n == 0):
+            divided = int(num/n)
+            small = n if n <= divided else divided
+            big = n if n != small else divided
+            arr.append([small, big])
+            continue
+    numlis = list(map(list, set(map(tuple, arr))))
+    return sum(map(sum, numlis)) - num
+
+def problem21(num: int):
+    arr = []
+    for n in range(num, 0, -1):
+        s = getDivisorsSum(n)
+        if n == getDivisorsSum(s):
+            if (s == n):
+                continue
+            arr.append(n)
+            arr.append(s)
+            continue
+    print(set(arr))
+    return sum(set(arr))
+
+print(problem21(10000))
