@@ -1,5 +1,6 @@
 from functools import reduce
 from math import floor, sqrt
+import string
 
 def problem1(num):
     result = 0
@@ -430,4 +431,22 @@ def problem21(num: int):
     print(set(arr))
     return sum(set(arr))
 
-print(problem21(10000))
+def problem22():
+    score = 0
+    arr = [c for c in string.ascii_uppercase]
+    f = open('p022_names.txt', 'r', encoding='UTF-8')
+    data = f.read().split(",")
+    for i in range(0, len(data), 1):
+        data[i] = data[i].strip('"')
+    data.sort()
+
+    for d in data:
+        charScore = 0
+        sortScore = data.index(d)+1 
+        for c in d:
+            charScore += arr.index(c)+1
+        score += charScore*sortScore
+
+    return score
+
+print(problem22())
