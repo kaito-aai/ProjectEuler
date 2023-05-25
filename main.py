@@ -354,6 +354,46 @@ nums = [
     [4, 62, 98,  27, 23, 9 ,70 , 98, 73, 93, 38, 53, 60, 4, 23], 
 ]
 
+def problem17(num):
+    num1 = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"] # 36
+    num2 = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"] # 67
+    num3 = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"] # 46
+    hundred = "hundred"
+    thousand = "thousand"
+    andC = "and"
+
+    arr = []
+    for i in range(1, num + 1):
+        if i <= 9:
+            arr.append(num1[i - 1])
+        if i >= 10 and i <= 19:
+            arr.append(num2[i - 10])
+        if i >= 20 and i <= 99:
+            num = num3[int(i / 10) -2]
+            divided = i % 10
+            if divided == 0:
+                arr.append(num)
+                continue
+            num += num1[(i % 10) - 1]
+            arr.append(num)
+        if i >= 100 and i <= 999:
+            num = arr[int(i / 100) - 1]
+            num += hundred
+
+            divided = i % 100
+            if divided == 0:
+                arr.append(num)
+                continue
+            num += andC
+            x =  i - (int(i / 100) * 100) - 1
+            num += arr[x]
+            arr.append(num)
+
+        if i == 1000:
+            arr.append("one" + thousand)
+
+    return len("".join(arr))
+
 def problem18(numsList: list[int]):
     for i in range(len(numsList)-1, 0, -1):
         for index, num in enumerate(nums[i - 1]):
@@ -448,5 +488,3 @@ def problem22():
         score += charScore*sortScore
 
     return score
-
-print(problem22())
