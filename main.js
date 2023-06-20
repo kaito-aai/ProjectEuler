@@ -133,6 +133,45 @@ const problem7 = (num) => {
     return primes[num - 1];
 }
 
+const isPrime = (n) => {
+    if (n === 1) return false;
+    if (n < 4) return true;
+    
+    if (n % 2 === 0) return false;
+    if (n < 9) return true; 
+    if (n % 3 === 0) return false;
+
+    const root = Math.floor(Math.sqrt(n));
+    let f = 5;
+    while (f <= root) {
+        if (n % f === 0) {
+            return false;
+        }
+
+        if (n % (f + 2) === 0) {
+            return false;
+        }
+        f += 6;
+    }
+    return true;
+}
+
+const problem7_2 = (num) => {
+    let count = 1;
+    let candidate = 1;
+
+    while (true) {
+        candidate += 2;
+        if (isPrime(candidate)) {
+            count += 1;
+        }
+
+        if (count === num) {
+            return candidate;
+        }
+    }
+}
+
 const problem8Nums = "73167176531330624919225119674426574742355349194934"+
 "96983520312774506326239578318016984801869478851843"+
 "85861560789112949495459501737958331952853208805511"+
@@ -311,4 +350,95 @@ const problem11 = () => {
 
     return Math.max(...products);
 }
-console.log(problem11())
+
+const problem12 = () => {
+
+    let base = 1;
+    while (true) {
+        let num = 0;
+        for (i = 1; i <= base; i++) {
+            num += i;
+        }
+    
+        let divisor = [];
+        for (i = 1; i <= num; i++) {
+            if (num % i === 0) {
+                divisor.push(i);
+            }
+        }
+    
+        if (divisor.length > 5) {
+            return divisor
+        }
+        divisor = [];
+        base++;
+    }
+
+
+
+}
+
+const problem12_2 = () => {
+    let triangleNum = 1;
+    let a = 1;
+    let count = 1;
+
+    while (count <= 6) {
+        count = 0;
+        a++;
+        triangleNum += a;
+
+        const ttx = Math.sqrt(triangleNum);
+        for (i = 1; i <= ttx; i++) {
+            if (triangleNum % i === 0) {
+                count += 2;
+            }
+        }
+        if (triangleNum === Math.pow(ttx, 2)) {
+            count--;
+        }
+    }
+    return triangleNum;
+}
+
+const problem12_3 = () => {
+    let t = 1;
+    let a = 1;
+    let cnt = 0;
+    var tt, i, exponent;
+
+    let primearray =[];
+    for (i = 1; i <= 50000000; i++) {
+        if (isPrime(i)) {
+            primearray.push(i);
+        }
+    }
+
+    while (cnt <= 500) {
+        cnt = 1;
+        a += 1;
+        t += a;
+        tt = t;
+        for (i = 0; i < primearray.slice(-1)[0]; i++){
+            if (primearray[i] * primearray[i] > tt) {
+                cnt *= 2;
+                break;
+            }
+            exponent = 1;
+            while (tt % primearray[i] === 0) {
+                exponent++;
+                tt /= primearray[i];
+            }
+            if (exponent > 1) {
+                cnt *= exponent;
+            }
+            if (tt === 1) {
+                break;
+            }
+        }
+    }
+    return t;
+}
+
+console.log(problem12_3())
+
