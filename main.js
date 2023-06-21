@@ -440,5 +440,62 @@ const problem12_3 = () => {
     return t;
 }
 
-console.log(problem12_3())
+const problem14 = () => {
+    let largestArr = [];
+    let largestTarget = 0;
+
+    for (n = 1000000; n > 1; n--) {
+        const arr = []
+        let target = n;
+
+        while (target > 1) {
+            if (target % 2 === 0) {
+                target /= 2
+                arr.push(target)
+                continue;
+            }
+
+            target = 3 * target + 1
+            arr.push(target);
+        }
+
+        if (largestArr.length < arr.length) {
+            largestArr = arr;
+            largestTarget = n;
+        }
+    }
+    return largestTarget;
+}
+
+const problem14_2 = (num) => {
+    const values = Array.from({length: num}, (v, k) => undefined);
+    values[2] = 1;
+    const countChanin = (n) => {
+        if (values[n] !== undefined) {
+            return values[n];
+        }
+
+        if (n % 2 === 0) {
+            values[n] = 1 + countChanin(n/2);
+        }
+        else {
+            values[n] = 2 + countChanin((3 * n + 1) / 2)
+        }
+        return values[n];
+    }
+
+    let longestChain = 0;
+    let answer = -1;
+
+    for (i = num / 2; i <= num - 1; i++) {
+        const n = countChanin(i)
+        if (n > longestChain) {
+            longestChain = n;
+            answer = i;
+        }
+    }
+    return answer;
+}
+
+console.log(problem14_2(1000000))
 
