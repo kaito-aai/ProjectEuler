@@ -497,5 +497,215 @@ const problem14_2 = (num) => {
     return answer;
 }
 
-console.log(problem14_2(1000000))
+const problem15 = () => { 
+    const countRoute = (m, n) => {
+        if (m === 0 || n === 0) {
+            return 1;
+        }
+        return countRoute(m, n - 1) + countRoute(m - 1, n);
+    }
 
+    return countRoute(2, 2);
+}
+
+const problem15_2 = () => {
+    const countRoute = (n) => {
+        let result = 1;
+
+        for (i = 1; i < n; i++) {
+            result *= (n + i) / i;
+        }
+
+        return result;
+    }
+
+    return (countRoute(20))
+}
+
+const problem16 = (n) => {
+    const pow = Array.from(String(BigInt(Math.pow(2, n))), Number);
+
+    return pow.reduce((p, c) => p + Math.trunc(c));
+}
+
+const problem18_triangle = [
+    [75],
+    [95, 64],
+    [17, 47, 82],
+    [18, 35, 87, 10],
+    [20, 4, 82, 47, 65],
+    [19, 1, 23, 75, 3, 34],
+    [88, 2, 77, 73, 7, 63, 67],
+    [99, 65, 4, 28, 6, 16, 70, 92],
+    [41, 41, 26, 56, 83, 40, 80, 70, 33],
+    [41, 48, 72, 33, 47, 32, 37, 16, 94, 29],
+    [53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14],
+    [70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
+    [91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48],
+    [63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
+    [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23]
+]
+
+const arr = [
+[3],
+[7, 4],
+[2, 4, 6],
+[8, 5, 9, 3],
+]
+
+const problem18 = (n) => {
+    let index = 0;
+    const result = problem18_triangle.reduce((p, c) => {
+        if (c[index] < c[index + 1]) {
+            index++;
+        }
+        return p + c[index];
+    }, 0)
+
+    return result;
+}
+
+const problem19 = () => {
+    let sundayCount = 0;
+
+    for (y = 1901; y <= 2000; y++) {
+        for (m = 1; m <= 12; m++) {
+            const date = new Date(y, m, 1);
+            if (date.getDay() === 0) {
+                sundayCount++
+            }
+        }
+    }
+    return sundayCount;
+}
+
+const problem20 = (n) => {
+    const arr = Array.from({length: n}, (v, k) => BigInt(k + 1));
+    const num = BigInt(arr.reduce((p, v) => BigInt(p * v, 1)));
+    const numArr = Array.from(num.toString(), Number);
+    return numArr.reduce((p, c) => p + c);
+}
+
+const problem21 = (num) => {
+    const index = Array.from({length: num + 1}, undefined);
+
+    const getSumOfDivisors = (n) => {
+        const arr = [1];
+        if (index[n] !== undefined) {
+            return index[n];
+        }
+
+        for (i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) {
+                // 足す用
+                arr.push(i);
+                arr.push(n / i);
+            }
+        }
+
+        index[n] = arr.reduce((p, c) => p + c);
+        return index[n];
+    }
+
+    const amicables = [];
+
+    for (i = 1; i <= num; i++) {
+        const num1 = getSumOfDivisors(i);
+        if (num1 <= i) {
+            continue;
+        }
+        const num2 = getSumOfDivisors(num1);
+
+        if (i === num2) {
+            amicables.push(num1);
+            amicables.push(num2);
+        }
+    }
+
+    console.log(index);
+
+    return amicables.reduce((p, c) => p + c);
+}
+
+const problem22 = () => {
+    let score = 0;
+    // file 読み込み
+    const reader = new FileReader();
+    const arrayBuffer = reader.readAsArrayBuffer("p022_names.txt");
+    // scoreリスト
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    const alphabetArr = Array.from(alphabet);
+    const getAlphabetScore = (index) => {
+        return alphabet.charCodeAt(i);
+    }
+
+    const getAlphabetNum = (char) => {
+        return alphabetArr.findIndex(v => v === c) + 1;
+    }
+    // score++
+}
+
+const problem23 = () => {
+    const abundant = Array.from({length: 28124}, (v, k) => false);
+    const getDivisorsSum = (num) => {
+        let arr = [1];
+        for (i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i !== 0) {
+                continue;
+            }
+            arr.push(i);
+            arr.push(num / i);
+        }
+        const distinctArray = [...new Set(arr)];
+        return distinctArray.reduce((p, c) => p + c, 0);
+    }
+
+    abundant.forEach((v, i, a) => {
+        if (i === 0) {
+            return;
+        }
+        const sum = getDivisorsSum(i);
+        if (i < sum) {
+            a[i] = true;
+        }
+    })
+
+    const twoAbundant = Array.from({length: 28124}, (v, k) => false);
+    let sum = 0;
+    let onlyAbundauntArray = [];
+    abundant.forEach((v, i) => {
+        if (v) {
+            onlyAbundauntArray.push(i);
+        }
+    });
+
+    onlyAbundauntArray.forEach(v => {
+        onlyAbundauntArray.forEach(k => {
+            twoAbundant[v + k] = true;
+        })
+    })
+
+    twoAbundant.forEach((v, i) => {
+        if (v) {
+            return;
+        }
+        sum += i;
+    })
+    return sum;
+}
+
+const problem25 =() => {
+    let index = BigInt(1);
+    let before = BigInt(1);
+    let now = BigInt(1);
+    while (before.toString().length < 1000) {
+        const after = BigInt(before + now);
+        before = now;
+        now = after;
+        index++;
+    }
+
+    return index;
+}
+
+console.log(problem25());
