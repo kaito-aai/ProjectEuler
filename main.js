@@ -799,5 +799,16 @@ const problem28 = (n) => {
     return array.reduce((p, c) => p + c);
 }
 
-console.log(problem28(1001));
+const problem29 = () => {
+    const array = [];
+    for (let a = 2; a <= 100; a++) {
+        for (let b = 2; b <= 100; b++) {
+            array.push(Math.pow(a, b))
+        }
+    }
+
+    return new Set(array).size
+}
+
+console.log(problem29());
 
