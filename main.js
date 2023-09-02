@@ -708,4 +708,96 @@ const problem25 =() => {
     return index;
 }
 
-console.log(problem25());
+const problem26 = () => {
+    const array = Array.from({length: 1001}, undefined)
+    const getRecurrringCycle = (k) => {
+        let m = 1;
+        const mlist = [];
+        let dec = "";
+
+        // 余りを記録
+
+        while (true) {
+            // 同じ余りが存在するならreturn
+            if (mlist.find(v => v === m)) {
+                return m;
+            }
+
+            mlist.push(m);
+            dec += Math.floor((m * 10) / k).toString();
+            m = (m * 10) % k
+            if (m === 0) {
+                return m;
+            }
+        }
+    }
+    for (n = 2; n < 1000; n++) {
+        let a = getRecurrringCycle(n);
+        array[n] = a;
+    }
+
+    const max = array.reduce((p, c) => {
+        if (c === undefined) {
+            c = 0;
+        }
+        if (p < c) {
+            return c;
+        }
+        return p;
+    }, 0);
+
+    return array.findIndex(v => v === max);
+}
+
+const problem27 = () => {
+    let n = 0;
+    while (true) {
+        for (a = 1; a < 1000; a++) {
+            for (b = 1; b <= 1000; b++) {
+                const resultA = Math.pow(n, 2) + (a * n) + b
+                const resultB = Math.pow(n, 2) - (a * n) + b
+                const resultC = Math.pow(n, 2) + (a * n) - b
+                const resultD = Math.pow(n, 2) - (a * n) - b
+
+                const dividedA = resultA % n;
+                const dividedB = resultB % n;
+                const dividedC = resultC % n;
+                const dividedD = resultD % n;
+
+                if (dividedA === 0 || dividedB === 0 || dividedC === 0 || dividedD === 0) {
+                    return a * b
+                }
+            }
+        }
+    }
+}
+
+class Point {
+    x;
+    y;
+    number;
+
+    constructor(x, y, number) {
+        this.x = x;
+        this.y = y;
+        this.number = number;
+    }
+}
+
+const problem28 = (n) => {
+    const array = [1];
+    let sqrt = 3;
+
+    while (array[array.length - 1] < Math.pow(n, 2)) {
+        let base = array[array.length - 1];
+        for (i = 1; i <= 4; i++) {
+            array.push(base + ((sqrt - 1) * i))
+        }
+        sqrt += 2;
+    }
+
+    return array.reduce((p, c) => p + c);
+}
+
+console.log(problem28(1001));
+
