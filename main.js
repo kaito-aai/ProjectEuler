@@ -810,5 +810,27 @@ const problem29 = () => {
     return new Set(array).size
 }
 
-console.log(problem29());
+const problem30 = () => {
+    const pod = [];
+    const powTarget =  Array.from({length: 10}, (_, k) => k);
+    const pow = 5;
+    const powed = powTarget.map(v => Math.pow(v, pow));
+
+    let num = 2;
+    while (num < 1000000) {
+        const nums = num.toString().split('').map(Number);
+
+        const calculated = nums.reduce((p, c) => p + powed[c], 0);
+
+        if (calculated === num) {
+            pod.push(num);
+        }
+
+        num++;
+    }
+
+    return pod.reduce((p, c) => p+c, 0);
+}
+
+console.log(problem30());
 
